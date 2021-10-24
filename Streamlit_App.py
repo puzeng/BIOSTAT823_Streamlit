@@ -13,7 +13,8 @@ Data Visualizations based on National Science Foundation of Science and Engineer
 st.subheader("""
 Sex vs Major Field of Study
 """)
-sex_field_study = pd.read_csv('sex_field_study_phd.csv')
+#url_sex = "https://raw.githubusercontent.com/puzeng/BIOSTAT823_FALL21_Pu/main/data/sex_field_study_phd.csv"
+sex_field_study = pd.read_csv("sex_field_study_phd.csv", low_memory = False)
 #sex_field_study = sex_field_study.melt(id_vars = ['Major field of study', 'Sex'], 
                                         #var_name = 'Year', 
                                         #value_name = 'Number of ppl')
@@ -157,8 +158,8 @@ st.text("""In this section, we want to focus on the relationship between
 the race distribution in variables, major field of study, employment types, and the debt level.
 We will fistly look at the race vs major field of study.
 """)
-
-race_df = pd.read_csv('race_phd_info.csv', low_memory = False)
+#race_url = "https://raw.githubusercontent.com/puzeng/BIOSTAT823_FALL21_Pu/main/data/race_phd_info.csv"
+race_df = pd.read_csv("race_phd_info.csv", low_memory = False)
 race_df['Number of count'] = pd.to_numeric(race_df['Number of count'], errors='coerce')
 race_df['value'] = pd.to_numeric(race_df['value'], errors='coerce')
 race_df['Count'] = pd.to_numeric(race_df['Count'], errors='coerce')
