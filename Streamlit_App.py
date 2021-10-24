@@ -5,8 +5,7 @@ import seaborn as sns
 import streamlit as st
 
 st.title("""
-Visualization Dashborad:\n 
-Is there a life after graduate school?\n
+Visualization Dashborad:\n
 Data Visualizations based on National Science Foundation of Science and Engineering Doctorates[1].
 """)
 
@@ -19,16 +18,15 @@ sex_field_study = pd.read_csv("sex_field_study_phd.csv", low_memory = False)
                                         #var_name = 'Year', 
                                         #value_name = 'Number of ppl')
 st.text("""
-We first look into the gender distribution for each type of the major field of study
-in the degree of doctorates.\n
+First, let's look at the gender distribution for each type of the major field of study.\n
 The table below showed the number of PhD candidates in each major feild of study
 stratified by genders from year 2008 to 2017.
 """)
 st.table(sex_field_study.head())
 
 st.text("""
-In this section, we are going to take a look of how the number of PhD candidates 
-is ditributed from year 2008 to 2017.
+In this section, we are going to take a look at how the number of PhD candidates 
+is ditributed from year 2008 to 2017y by each type of major field of study.
 
 By default, we will select the Life sciences and you are free to unselect this study.
 """)
@@ -125,7 +123,7 @@ if st.button("Click me if you want to see data distrubution for female."):
     st.plotly_chart(fig)
 
 st.text("""
-Then, we would like to perform the comparison of number of people in some certain fields by gender.
+Then, we would like to perform the comparison against some certain fields by gender.
 """)
 
 selected_df = sex_combined[sex_combined['Major field of study'].isin(selected_study)]
@@ -156,7 +154,6 @@ Race vs Major Field of Study vs Employment Types vs Debt Level
 
 st.text("""In this section, we want to focus on the relationship between
 the race distribution in variables, major field of study, employment types, and the debt level.
-We will fistly look at the race vs major field of study.
 """)
 #race_url = "https://raw.githubusercontent.com/puzeng/BIOSTAT823_FALL21_Pu/main/data/race_phd_info.csv"
 race_df = pd.read_csv("race_phd_info.csv", low_memory = False)
@@ -165,8 +162,6 @@ race_df['value'] = pd.to_numeric(race_df['value'], errors='coerce')
 race_df['Count'] = pd.to_numeric(race_df['Count'], errors='coerce')
 race_df = race_df.dropna().reset_index(drop = True)
 
-#since the dataset is too large (131072 rows × 7 columns), we randomly sample 2000 from it
-#race_df = race_df.sample(1000).reset_index(drop = True)
 st.dataframe(race_df.head())
 
 st.text("""
@@ -189,6 +184,7 @@ if selected_var == 'Field of study':
         race_df['Field of study'].unique().tolist(),
         default = 'All fields'
     )
+    #select the columns with associated info.
     study_df = race_df.iloc[:, 0:2]
     study_df = race_df.iloc[:, [0,1,2]]
     study_df = study_df.dropna().drop_duplicates()
@@ -309,3 +305,12 @@ if selected_var == 'Debt level':
         it probabily is because we don't have the related data.
         """
     )
+
+st.text(
+    """
+    References:
+    [1] National Science Foundation, National Center for Science and Engineering Statistics. 2018. 
+    Doctorate Recipients from U.S. Universities: 2017. 
+    Special Report NSF 19-301. Alexandria, VA. Available at https://ncses.nsf.gov/pubs/nsf19301/.
+    """
+)
